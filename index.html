@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Armenia Choropleth Map</title>
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h2>Armenia Data Map</h2>
+
+    <!-- Switcher buttons -->
+    <div class="controls">
+      <button data-type="population" class="data_t">Population</button>
+      <button data-type="schools" class="data_t">Schools</button>
+      <button id="weather">Show temperature in Yerevan</button>
+      <button id="dot">Show cities</button>
+      <button id="charts">Show charts</button>
+    </div>
+    <div id="temp"></div>
+    <br>
+    <div id="map"></div>
+    <div id="chart">
+    <canvas id="myChart"></canvas>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

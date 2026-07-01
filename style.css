@@ -1,0 +1,54 @@
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+
+.controls {
+  margin-bottom: 10px;
+}
+
+button {
+  padding: 6px 12px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+#map {
+  height: 600px;
+  width: 90%;
+  margin: auto;
+  display: block;
+}
+
+#chart {
+  height: 600px;
+  width: 90%;
+  margin: auto;
+}
+
+
+.info {
+  background: white;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.tempe {
+  background: white;
+  padding: 8px;
+  border-radius: 5px;
+}
+
+.legend {
+  background: white;
+  padding: 6px;
+  font-size: 14px;
+}
+
+body {
+  background-image: linear-gradient(rgb(245, 229, 229), antiquewhite);
+}
+
+.chart {
+  display:none;
+}

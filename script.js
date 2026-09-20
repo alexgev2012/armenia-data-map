@@ -136,12 +136,17 @@ fetch('data/armenia-simple.geojson')
 
 function loadData(type) {
     currentMode = type
+    document.querySelectorAll('.data_t').forEach((button) => {
+        button.setAttribute('aria-pressed', String(button.dataset.type === type))
+    })
 
     fetch(`data/${type}.json`)
         .then((r) => r.json())
         .then((data) => {
             currentData = data
             geojsonLayer.setStyle(style)
+            info.update()
+            if (!document.getElementById('chart').hidden) loadchart()
         })
 }
 
@@ -155,7 +160,6 @@ btnArray.forEach((btn) => {
 })
 
 const weather = document.getElementById('weather')
-let temp = document.getElementById('temp')
 
 const tempe = L.control({ position: 'topleft' })
 
@@ -262,18 +266,21 @@ let response_values
 let chartInstance = null;
 
 charts.addEventListener('click', () => {
-    let map = document.getElementById('map')
+    let mapElement = document.getElementById('map')
     let chart = document.getElementById('chart')
-    if (map.style.display == 'block') {
-        map.style.display = 'none'
-        chart.style.display = 'block'
-        charts.innerText = 'Hide charts'
+    if (chart.hidden) {
+        mapElement.hidden = true
+        chart.hidden = false
+        charts.innerText = 'Show map'
+        charts.setAttribute('aria-pressed', 'true')
         loadchart()
     }
     else {
-        map.style.display = 'block'
-        chart.style.display = 'none'
+        mapElement.hidden = false
+        chart.hidden = true
         charts.innerText = 'Show charts'
+        charts.setAttribute('aria-pressed', 'false')
+        map.invalidateSize()
     }
 })
 
@@ -297,10 +304,14 @@ function loadchart() {
                     datasets: [{
                         label: currentMode,
                         data: response_values,
+                        backgroundColor: currentMode === 'population' ? '#176b60' : '#7960b2',
+                        borderRadius: 5,
                         borderWidth: 1
                     }]
                 },
                 options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
                     scales: {
                         y: {
                             beginAtZero: true

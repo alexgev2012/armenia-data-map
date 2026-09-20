@@ -2,6 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Armenia Choropleth Map</title>
 
     <link
@@ -11,22 +12,37 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <h2>Armenia Data Map</h2>
+    <main class="app-shell">
+    <header class="page-header">
+      <p class="eyebrow">A regional perspective</p>
+      <h1>Armenia <span>Data Map</span></h1>
+      <p class="intro">Explore the places and numbers that shape Armenia.</p>
+    </header>
 
-    <!-- Switcher buttons -->
+    <section class="explorer" aria-label="Regional data explorer">
     <div class="controls">
-      <button data-type="population" class="data_t">Population</button>
-      <button data-type="schools" class="data_t">Schools</button>
+      <div class="segmented-control" role="group" aria-label="Dataset">
+      <button data-type="population" class="data_t" aria-pressed="true">Population</button>
+      <button data-type="schools" class="data_t" aria-pressed="false">Schools</button>
+      </div>
+      <div class="view-options" role="group" aria-label="View options">
       <button id="weather">Show temperature in Yerevan</button>
       <button id="dot">Show cities</button>
-      <button id="charts">Show charts</button>
+      <button id="charts" aria-pressed="false" aria-controls="map chart">Show charts</button>
+      </div>
     </div>
-    <div id="temp"></div>
-    <br>
-    <div id="map"></div>
-    <div id="chart">
-    <canvas id="myChart"></canvas>
+    <div class="view-heading">
+      <h2>Across the regions</h2>
+      <p>Compare population and schools, region by region.</p>
     </div>
+    <div id="map" role="region" aria-label="Interactive map of Armenia"></div>
+    <div id="chart" hidden>
+    <canvas id="myChart" role="img" aria-label="Regional dataset bar chart"></canvas>
+    </div>
+    <div class="view-footer"><span>10 provinces + Yerevan</span><span>Hover over a region to explore its data</span></div>
+    </section>
+    <footer class="page-footer">Armenia Data Map <span>Built for a closer look.</span></footer>
+    </main>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>

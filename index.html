@@ -24,13 +24,25 @@
       <div class="segmented-control" role="group" aria-label="Dataset">
       <button data-type="population" class="data_t" aria-pressed="true">Population</button>
       <button data-type="schools" class="data_t" aria-pressed="false">Schools</button>
+      <button data-type="schoolRate" class="data_t" aria-pressed="false">Schools / 10k residents</button>
       </div>
       <div class="view-options" role="group" aria-label="View options">
       <button id="weather">Show temperature in Yerevan</button>
       <button id="dot">Show cities</button>
       <button id="charts" aria-pressed="false" aria-controls="map chart">Show charts</button>
+      <button id="share">Copy view link</button>
       </div>
     </div>
+    <div class="explore-tools">
+      <form id="search-form" role="search">
+        <label for="location-search">Find a region or city</label>
+        <div class="search-row"><input id="location-search" list="locations" placeholder="e.g. Lori or Gyumri" autocomplete="off" required /><datalist id="locations"></datalist><button type="submit">Go</button></div>
+      </form>
+      <label id="sort-control" hidden>Chart order
+        <select id="chart-sort"><option value="desc">Highest first</option><option value="asc">Lowest first</option><option value="name">Region name</option></select>
+      </label>
+    </div>
+    <div class="feedback"><p id="app-status" role="status">Loading regional data…</p><button id="retry" hidden>Retry data loading</button><p id="weather-status" role="status"></p><p id="tile-status" role="status"></p><p id="action-status" role="status"></p><input id="share-link" aria-label="View link — copy this address" readonly hidden /></div>
     <div class="view-heading">
       <h2>Across the regions</h2>
       <p>Compare population and schools, region by region.</p>
@@ -39,7 +51,15 @@
     <div id="chart" hidden>
     <canvas id="myChart" role="img" aria-label="Regional dataset bar chart"></canvas>
     </div>
-    <div class="view-footer"><span>10 provinces + Yerevan</span><span>Hover over a region to explore its data</span></div>
+    <section id="legend" class="map-legend" aria-label="Map color legend"></section>
+    <section id="region-details" class="region-details" aria-labelledby="region-title" hidden>
+      <div class="details-heading"><h2 id="region-title" tabindex="-1"></h2><button id="close-details">Close details</button></div>
+      <dl id="region-values"></dl>
+    </section>
+    <details class="data-table"><summary>View regional values as a table</summary><div class="table-scroll"><table><caption id="table-caption"></caption><thead><tr><th scope="col">Region</th><th scope="col">Value</th></tr></thead><tbody id="table-body"></tbody></table></div></details>
+    <p id="data-source" class="data-source"></p>
+    <p class="data-source">City coordinates: <a href="https://www.geonames.org/advanced-search.html?country=AM">GeoNames</a> (<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>), rounded for display.</p>
+    <div class="view-footer"><span>10 provinces + Yerevan</span><span>Click a region for details, or find it using search.</span></div>
     </section>
     <footer class="page-footer">Armenia Data Map <span>Built for a closer look.</span></footer>
     </main>

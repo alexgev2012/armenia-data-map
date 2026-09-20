@@ -54,3 +54,67 @@ button[aria-pressed="true"] { background: var(--accent); border-color: var(--acc
   .view-footer { padding: 14px 16px; }
 }
 @media (prefers-reduced-motion: reduce) { button { transition: none; } }
+
+/* Search, data explanations, and accessible comparison views. */
+.segmented-control { flex-wrap: wrap; }
+.explore-tools { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: 20px; padding: 20px 24px 0; }
+.explore-tools label { display: block; color: var(--muted); font-size: .85rem; font-weight: 600; }
+.search-row { display: flex; gap: 8px; margin-top: 6px; }
+input, select { min-height: 44px; max-width: 100%; border: 1px solid var(--line); border-radius: 9px; padding: 10px 12px; font: inherit; color: var(--ink); background: white; }
+input { width: min(340px, 100%); min-width: 0; }
+select { display: block; margin-top: 6px; }
+input:focus-visible, select:focus-visible, summary:focus-visible { outline: 3px solid #218c7b; outline-offset: 3px; }
+button:disabled { opacity: .55; cursor: wait; }
+.feedback { padding-inline: 24px; }
+.feedback p { margin: 12px 0 0; color: var(--muted); font-size: .9rem; }
+.feedback p:empty { display: none; }
+#retry { margin-top: 10px; }
+#share-link { width: 100%; margin-top: 10px; }
+.map-legend { display: flex; flex-wrap: wrap; gap: 10px 20px; padding: 18px 24px; border-bottom: 1px solid var(--line); font-size: .8rem; }
+.map-legend strong { flex-basis: 100%; }
+.map-legend span { display: inline-flex; gap: 7px; align-items: center; }
+.map-legend i { width: 18px; height: 18px; border: 1px solid #52615d55; border-radius: 4px; }
+.region-details { padding: 20px 24px; background: #eef6f3; border-bottom: 1px solid var(--line); }
+.details-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.details-heading h2 { margin: 0; font-size: 1.2rem; }
+.region-details dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 0; }
+.region-details dt { color: var(--muted); font-size: .8rem; }
+.region-details dd { margin: 6px 0 0; font-size: 1.5rem; font-weight: 700; }
+.data-source { padding: 0 24px; color: var(--muted); font-size: .8rem; }
+.data-table { padding: 16px 24px; }
+.data-table summary { cursor: pointer; font-size: .9rem; font-weight: 600; }
+.table-scroll { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; margin-top: 12px; text-align: left; font-size: .9rem; }
+caption { text-align: left; color: var(--muted); padding-bottom: 10px; }
+th, td { padding: 8px; border-bottom: 1px solid var(--line); }
+td { font-variant-numeric: tabular-nums; }
+@media (max-width: 640px) {
+  .explore-tools, .region-details, .map-legend, .data-table { padding: 16px; }
+  .feedback { padding-inline: 16px; }
+  .data-source { padding-inline: 16px; }
+  .explore-tools form, .search-row { width: 100%; }
+  .search-row input { flex: 1; }
+  .region-details dl { grid-template-columns: 1fr; }
+  #chart { height: 540px; }
+}
+
+/* Keep movement short and avoid transitioning Leaflet's positioning transforms. */
+:root { --motion-ease: cubic-bezier(.22, 1, .36, 1); }
+button { transition: background-color 220ms ease, border-color 220ms ease, color 220ms ease, box-shadow 220ms ease, transform 180ms var(--motion-ease); }
+button:active:not(:disabled) { transform: translateY(1px); }
+input, select { transition: border-color 220ms ease, box-shadow 220ms ease; }
+#map .leaflet-interactive { transition: fill 380ms ease, fill-opacity 220ms ease, stroke 220ms ease, stroke-width 220ms ease; }
+#map:not([hidden]), #chart:not([hidden]) { animation: view-reveal 300ms var(--motion-ease); }
+.region-details:not([hidden]), .data-table[open] .table-scroll { animation: detail-reveal 280ms var(--motion-ease); }
+.region-details { scroll-margin-block: 20px; }
+@keyframes view-reveal { from { opacity: .35; } to { opacity: 1; } }
+@keyframes detail-reveal { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+@media (hover: hover) {
+  button:hover:not(:disabled) { box-shadow: 0 3px 10px #193e3212; }
+}
+@media (prefers-reduced-motion: reduce) {
+  button, input, select, #map .leaflet-interactive { transition: none; }
+  #map:not([hidden]), #chart:not([hidden]), .region-details:not([hidden]), .data-table[open] .table-scroll { animation: none; }
+  #map .leaflet-zoom-animated, #map .leaflet-tile, #map .leaflet-popup, #map .leaflet-tooltip { transition: none !important; }
+  button:active:not(:disabled) { transform: none; }
+}
